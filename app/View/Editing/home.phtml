@@ -1,0 +1,483 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php
+echo $this->Html->css("bootstrap");
+echo $this->Html->css("bootstrap-theme.min");
+echo $this->Html->css("bootstrap-theme");
+echo $this->Html->css("bootstrap.min");
+echo $this->Html->css("editing_offer");
+
+echo $this->fetch('css');
+
+
+echo $this->Html->script('bootstrap');
+echo $this->Html->script('bootstrap.min');
+echo $this->Html->script('editing-offer');
+echo $this->fetch('script');
+?>
+
+<!-- chose-tag-plugin -->
+<link rel="stylesheet" type="text/css" href="../css/chose-color.css" />
+<script type="text/javascript" src="../js/chose-color.js"></script>
+
+<link rel="stylesheet" href="https://raw.githubusercontent.com/xoxco/jQuery-Tags-Input/master/src/jquery.tagsinput.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://raw.githubusercontent.com/xoxco/jQuery-Tags-Input/master/src/jquery.tagsinput.js"></script>
+<script src="../js/editing-offer.js"></script>
+
+<!-- C O R E S 
+<link rel="stylesheet" href="http://designrevivercom.c.presscdn.com/wp-content/uploads/2009/01/ui.colorpicker.css"/>
+<script language="JavaScript" src="http://designrevivercom.c.presscdn.com/wp-content/uploads/2009/01/jq.js"></script>
+<script language="JavaScript" src="http://designrevivercom.c.presscdn.com/wp-content/uploads/2009/01/jq.color.js"></script>-->
+
+<link rel="stylesheet" type="text/css" href="../css/jquery.tagsinput.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.tagsinput.js"></script>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js'></script>
+
+<!-- select with images -->
+<link rel="stylesheet" type="text/css" href="../css/modernizr.css" />
+<script type="text/javascript" src="http://tympanus.net/Tutorials/CustomDropDownListStyling/js/modernizr.custom.79639.js"></script>
+<script type="text/javascript" src="http://tympanus.net/Tutorials/CustomDropDownListStyling/js/modernizr.custom.79639.js"></script>
+
+
+
+<!-- ui style select -->
+<!--<link rel="stylesheet" type="text/css" href="../css/ui-style-select.css" />
+<script type="text/javascript" src="../js/ui-style-select.js"></script>-->
+
+<!-- SELECT WITH IMGS .JS -->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-7243260-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+
+<script type="text/javascript">
+
+    function DropDown(el) {
+        this.dd = el;
+        this.placeholder = this.dd.children('span');
+        this.opts = this.dd.find('ul.dropdown > li');
+        this.val = '';
+        this.index = -1;
+        this.initEvents();
+    }
+    DropDown.prototype = {
+        initEvents: function() {
+            var obj = this;
+
+            obj.dd.on('click', function(event) {
+                $(this).toggleClass('active');
+                return false;
+            });
+
+            obj.opts.on('click', function() {
+                var opt = $(this);
+                obj.val = opt.text();
+                obj.index = opt.index();
+                obj.placeholder.text(obj.val);
+            });
+        },
+        getValue: function() {
+            return this.val;
+        },
+        getIndex: function() {
+            return this.index;
+        }
+    }
+
+    $(function() {
+
+        var dd = new DropDown($('#dd'));
+
+        $(document).click(function() {
+            // all dropdowns
+            $('.wrapper-dropdown-3').removeClass('active');
+        });
+
+
+        $(".li-style-select").click(function() {
+            var id = $(this).attr("id");
+            $("#dropdownMenu" + id).html($(this).attr("label") + " <span class='caret'></span>");
+            $("#tipoentrada" + id).val($(this).attr("value"));
+        });
+
+    });
+
+    function liSelected(id, label, value) {
+        $("#dropdownMenu" + id).html(label + " <span class='caret'></span>");
+        $("#tipoentrada" + id).val(value);
+
+        if (value === 'escolha-cor') {
+            var values = $("#tags" + id).val();
+
+            var splitedContent = values.split(",");
+            var returnContent = '';
+
+            jQuery.each(splitedContent, function(i, val) {
+                returnContent += "<span tags-id='" + id + "' class='chose-tag' content-val='" + val + "-' id='" + val + "-'><input type='color' class='chose-color' tags-id='" + id + "' onchange='selectingColor(this)' id='" + i + "-" + val + "-'/>" + val + "<strong class='chose-tag-close' id='strong-" + val + "-' onclick='clickChoseTagClose(this)'>x</strong></span>";
+            });
+
+            $("#recebe-color-" + id).html(returnContent);
+            $("#tags-" + id).fadeOut(0);
+            $("#tags" + id + "_tagsinput").fadeOut(0);
+            $(".chose-content").fadeIn(100);
+        }
+    }
+
+    function selectingColor(element) {
+        var id = $(element).attr("id");
+
+        var newId = id + $(element).val();
+        $(element).attr("id", newId);
+
+        var inputColorId = $(element).attr("id");
+
+        //posicao do item clicado dentro do array de valores
+        var itemPosition = inputColorId.charAt(0);
+
+        //recupera valores do array 
+        var tagsId = $(element).attr("tags-id");
+        var listColors = $("#tags" + $(element).attr("tags-id")).val();
+        var splitedList = listColors.split(",");
+
+        var clickedValue = splitedList[itemPosition];
+        var newClickedValue = clickedValue + "-" + $(element).val();
+    
+        //aplicando novo valor à lista
+        splitedList[itemPosition] = newClickedValue;
+
+        var newTagsValue = '';
+        jQuery.each(splitedList, function(i, val) {
+            if (i > 0) {
+                newTagsValue += "," + val;
+            } else {
+                newTagsValue += val;
+            }
+        });
+
+        //atualiza valor do input
+        $("#tags" + tagsId).val(newTagsValue);
+
+    }
+
+</script>
+<script src="http://tympanus.net/codrops/adpacks/demoad.js"></script>
+
+
+<script>
+    jQuery(function() {
+        var counter = 0;
+        $("#counter").val(counter);
+        jQuery('#add-opcao').click(function(event) {
+            event.preventDefault();
+            counter++;
+            $("#counter").val(counter);
+            var newRow = jQuery('<tr id="row' + counter + '"><td><input type="text"  class="form-control" placeholder="Por exemplo Cor, Tamanho" name="titulo' +
+                    counter + '"/></td><td><input type="text" class="form-control" id="tags' + counter + '" onclick="teste(this)" placeholder="Por exemplo verde, vermelho, rosa" name="tags' +
+                    counter + '"/><div id="recebe-color-' + counter + '" class="chose-content"></div></td><td>' +
+                    '<div class="dropdown">' +
+                    '<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu' + counter + '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">' +
+                    'Selecione' +
+                    ' <span class="caret"></span>' +
+                    ' </button>' +
+                    ' <ul class="dropdown-menu" aria-labelledby="dropdownMenu' + counter + '" id="dropdownMenu' + counter + '" >' +
+                    '<li class="li-style-select" value="lista-suspensa" label="Lista Suspensa" id="' + counter + '" onclick="liSelected(' + counter + ', \'Lista Suspensa\', \'lista-suspensa\');"> <a href="#"> Lista Suspensa <img src = "../img/select/list.png" /> </a></li>' +
+                    '<li class="li-style-select" value="escolha-cor" label="Escolha de Cor" id="' + counter + '" onclick="liSelected(' + counter + ', \'Escolha de Cor\', \'escolha-cor\');"> <a href="#"> Escolha de Cor <img src = "../img/select/colors.png" /> </a></li>' +
+                    '<li class="li-style-select" value="multipla-escolha" label="Multipla Escolha" id="' + counter + '" onclick="liSelected(' + counter + ', \'Múltipla Escolha\', \'multipla-escolha\');"> <a href="#"> Múltipla Escolha <img src = "../img/select/multiple.png" /> </a></li>' +
+                    '</ul>' +
+                    '</div>' +
+                    '<input type="hidden" id="tipoentrada' + counter + '" name="tipoentrada' + counter + '" /> '
+                    + '</td>\n\
+          <td><img src="../img/xis.png" class="xis" onclick="removeRow(' + counter + ')"/></td></tr>');
+
+            jQuery('table#editingOfferTable').append(newRow);
+        });
+
+//        $("#guardar").click(function() {
+//
+//            var tags = '';
+//            alert("CONTADOR: " + counter);
+//
+//            for (i = 0; i < counter; i++) {
+//                tags[i] = "VALOR: " + $("#tags" + i).val();
+//                var texto = tags[i];
+//                alert(texto);
+//            }
+//
+//        });
+
+    });
+
+</script>
+
+
+
+<script>
+
+    $(document).ready(function() {
+
+        var hideit = function(e, ui) {
+            $(this).val('#' + ui.hex);
+            $('.ui-colorpicker').css('display', 'none');
+        };
+        $('.colorpicker').colorpicker({hide: hideit, submit: hideit});
+
+        $('#dochange').click(function() {
+
+            $('.colorpicker').css('border', "1px solid " + $('#colorpicker').val());
+
+            return false;
+        });
+
+    });
+
+    function changeSelect(element) {
+        var id = $(element).attr("id");
+        // alert("ID: " + id);
+        if ($("#" + id).val() == 'escolha-cor') {
+            var numsStr = id.replace(/[^0-9]/g, '');
+
+            //alert("numero do ID: " + numsStr);
+
+            var alternativas = $("#tags" + numsStr).val();
+
+            var arrayAlternativas = alternativas.split(",");
+
+            // alert(arrayAlternativas.length);
+
+            var contador = 0;
+            var conteudo = "";
+
+            for (i = 0; i < arrayAlternativas.length; i++) {
+
+                conteudo += "<input type='color' id='colorLine'" + numsStr + "Property" + contador + " class='chose-color'/>";
+                contador++;
+            }
+
+            jQuery('#recebe' + numsStr).append(conteudo);
+        }
+
+    }
+
+    $(function() {
+
+        $(".tipoentrada0").change(function() {
+
+            alert("select mudou");
+//            var id = $(this).attr("id");
+//               alert("ID: " + id);
+//            if ($("#" + id).val() == 'escolha-cor') {
+//                var numsStr = id.replace(/[^0-9]/g, '');
+//                
+//                   alert("numero do ID: " + numsStr);
+//                
+//               // var alternativas = $("#tags" + numsStr).val();
+//
+//               // alert("Alternativas inseridas: " + alternativas);
+//            }
+        });
+    });
+
+
+
+</script>
+<!-- FIM DAS CORES -->
+
+<script type="text/javascript">
+
+    function onAddTag(tag) {
+        alert("Added a tag: " + tag);
+    }
+    function onRemoveTag(tag) {
+        alert("Removed a tag: " + tag);
+    }
+
+    function onChangeTag(input, tag) {
+        alert("Changed a tag: " + tag);
+    }
+
+    $(function() {
+        $('#tags0').tagsInput({
+            width: 'auto',
+            height: 'auto',
+            padding: '0',
+            onChange: function(elem, elem_tags)
+            {
+                var languages = ['php', 'ruby', 'javascript'];
+                $('.tag', elem_tags).each(function()
+                {
+                    if ($(this).text().search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0)
+                        $(this).css('background-color', 'yellow');
+                });
+            }
+        });
+
+// Uncomment this line to see the callback functions in action
+//			$('input.tags').tagsInput({onAddTag:onAddTag,onRemoveTag:onRemoveTag,onChange: onChangeTag});
+
+// Uncomment this line to see an input with no interface for adding new tags.
+//			$('input.tags').tagsInput({interactive:false});
+
+    });
+
+    function teste(element) {
+//        alert($(element).attr("id"));
+        var identification = $(element).attr("id");
+        $("#" + identification).tagsInput({
+            width: 'auto',
+            height: 'auto',
+            padding: '0',
+            onChange: function(elem, elem_tags)
+            {
+                var languages = ['php', 'ruby', 'javascript'];
+                $('.tag', elem_tags).each(function()
+                {
+                    if ($(this).text().search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0)
+                        $(this).css('background-color', 'yellow');
+                });
+            }
+        });
+
+        $("#" + identification).focus();
+    }
+
+    //MOSTRA TELA INICIO
+    function gravaTabela() {
+
+        alert(1);
+        $("#myModal").fadeOut(600);
+        $("#div-loading").fadeIn(300);
+        alert(2);
+        $.ajax({
+            type: "POST",
+            data: $("form").serialize(),
+            url: 'http://localhost/OfferEditing/Editing/table',
+            success: function(result) {
+                $('#recebeTabelaAjax').html(result);
+               // alert(result);
+                // $('#pop-login').fadeIn(500);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                //alert(errorThrown);
+                alert('houve algume erro para forma a tabela, tente novamente. Obrigado!');
+            }
+        });
+        alert(3);
+        $("#div-loading").fadeOut(600);
+        $(".modal-backdrop").fadeOut(600);
+    }
+
+
+
+</script>
+
+<!-- HTML -->
+<div id="content" class="col-md-12">
+    <h3 class="">Opções diversas </h3> <span class="text-info">Adicionar várias opções, como tamanho ou cor</span>
+    <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#myModal">Adicionar opções</button>
+    <hr />
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" action="table">
+                <div class="modal-header navbar-default">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Editar opções</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped" id="editingOfferTable">
+                        <thead>
+                            <tr class="something">
+                                <th class="col-lg-3">Título opcional</th>
+                                <th class="col-lg-6">Alternativas de opção</th>
+                                <th class="col-lg-3">Tipo de entrada</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="row0">
+                                <td><input type="text" class="form-control" placeholder="Por exemplo Cor, Tamanho" id='titulo0' name='titulo0'/></td>
+                                <td><input type="text" class="form-control" id="tags0" class="tags0" name='tags0' placeholder="Por exemplo verde, vermelho, rosa" onclick="teste(this)"/></td>
+                                <td>
+<!--                                    <select class="form-control tipoentrada0" id='tipoentrada0' name='tipoentrada0' onchange="changeSelect(this)">
+                                        <option value="lista-suspensa">Lista suspensa</option>
+                                        <option value="multipla-escolha">Múltipla escolha</option>
+                                        <option value="escolha-cor">Escolha da cor</option>
+                                    </select>-->
+
+                                    <!-- -->
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle " type="button" id="dropdownMenu0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Selecione
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu0">
+                                            <li class='li-style-select' value='lista-suspensa' label='Lista Suspensa' id='0'><a href="#">Lista Suspensa <img src='../img/select/list.png' /></a></li>
+                                            <li class='li-style-select' value='escolha-cor' label='Escolha de Cor' id='0'><a href="#">Escolha de Cor <img src='../img/select/colors.png' /></a></li>
+                                            <li class='li-style-select' value='multipla-escolha' label='Multipla Escolha' id='0'><a href="#">Múltipla Escolha <img src='../img/select/multiple.png' /></a></li>
+                                        </ul>
+                                    </div>
+                                    <input type='hidden' id='tipoentrada0' name="tipoentrada0"/>
+
+                                    <!-- -->
+                                </td>
+                                <td><img src="../img/xis.png" class="xis" id="xis0" onclick="removeRow(0)"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div id="recebe0"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <input type='hidden' id='counter' name='counter'/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" id="add-opcao" class="add-opcao">Adicionar Opção</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id='guardar' onclick="gravaTabela()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<hr/>
+
+<!--<h3>select</h3>
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Dropdown
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id='0'>
+        <li class='li-style-select' value='lista-suspensa' label='Lista Suspensa' id='0'><a href="#">Lista Suspensa <img src='../img/select/list.png' /></a></li>
+        <li class='li-style-select' value='escolha-cor' label='Escolha de Cor' id='0'><a href="#">Escolha de Cor <img src='../img/select/colors.png' /></a></li>
+        <li class='li-style-select' value='multipla-escolha' label='Multipla Escolha'id='0'><a href="#">Múltipla Escolha <img src='../img/select/multiple.png' /></a></li>
+    </ul>
+</div>-->
+
+<div id="recebeTabelaAjax"></div>
+
+<div id="div-loading">
+    <img src="../img/select/loading_200.gif"/>
+</div>

@@ -1,0 +1,53 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script>
+    $(function() {
+
+        $("ul").on("click", ".init", function() {
+            $(this).closest("ul").children('li:not(.init)').toggle();
+        });
+
+        var allOptions = $("ul").children('li:not(.init)');
+        $("ul").on("click", "li:not(.init)", function() {
+            allOptions.removeClass('selected');
+            $(this).addClass('selected');
+            $("ul").children('.init').html($(this).html());
+            allOptions.toggle();
+        });
+
+
+        $("#submit").click(function() {
+            alert("The selected Value is " + $("ul").find(".selected").data("value"));
+          
+        });
+
+
+    });
+</script>
+
+<style>
+
+    ul { 
+        height: 30px;
+        width: 15%;
+        border: 1px solid rgba(0,0,0,0.17);
+        list-style-type:none;
+       
+        border-radius: 3px;
+    }
+    ul li { padding: 5px; z-index: 2; color: #555; margin-top: 1px; border-radius: 1px; text-align: center}
+    ul li:not(.init) { display: none; background: transparent; border:  1px solid rgba(0,0,0,0.17);}
+    ul li:not(.init):hover, ul li.selected:not(.init) { background: #09f; cursor: pointer; }
+    li.init { cursor: pointer; margin-left: -20px;}
+
+    a#submit { z-index: 1; }
+
+</style>
+
+<a href="#" id="submit"> Get Value</a>
+<ul>
+    <li class="init">...</li>
+    <li data-value="value 1">Option 1 <img src='../img/select/list.png' /></li>
+    <li data-value="value 2">Option 2 <img src='../img/select/colors.png' /></li>
+    <li data-value="value 3">Option 3 <img src='../img/select/multiple.png' /></li>
+</ul>

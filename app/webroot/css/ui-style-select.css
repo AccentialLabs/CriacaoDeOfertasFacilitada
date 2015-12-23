@@ -1,0 +1,40 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 10/12/2015, 09:36:07
+    Author     : user
+*/
+
+
+ul { 
+    height: 30px;
+    width: 100%;
+    border: 1px solid rgba(0,0,0,0.17);
+    list-style-type:none;
+    border-radius: 3px;
+    background: url('../img/select/seta-select-gray.jpg') no-repeat right 10px;
+    //background: #fff url('../img/select/seta-select-gray.jpg') no-repeat;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    background-position: right 10px bottom 7px;
+}
+
+ul:hover{
+    background: url('../img/select/seta-select.jpg') no-repeat right 10px;
+    background-position: right 10px bottom 7px;
+}
+
+ul li {padding: 5px; z-index: 999; color: #555; margin-top: 1px; border-radius: 1px; text-align: center;}
+ul li:not(.init) { display: none; background: #fff; border:  1px solid rgba(0,0,0,0.17); z-index: 99999;}
+ul li:not(.init):hover, ul li.selected:not(.init) { background: #09f; cursor: pointer; }
+li.init { cursor: pointer; margin-left: -20px;}
+
+a#submit { z-index: 1; }
+
+.ul-select-body{
+
+}

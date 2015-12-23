@@ -1,0 +1,81 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30/11/2015, 15:32:11
+    Author     : user
+*/
+
+.modal-lg{
+    width: 10%;
+}
+
+#myModal{
+    width: 100%;
+    margin: 0px;
+}
+
+.ui-sortable tr {     cursor:pointer; }    .ui-sortable tr:hover {     background:rgba(244,251,17,0.45); } 
+
+.xis{
+    opacity: 0.2;
+    width: 40px;
+    cursor: pointer;
+}
+
+.xis:hover{
+    opacity: 0.6;
+}
+
+table tr th{
+    text-align: center;
+}
+
+table tr td{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.input-preco{
+    width: 50%;
+}
+
+.chose-color{
+    border: 0px;
+    background: transparent;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.form-table{
+    width:100%;
+}
+
+.th-form-table{
+    width: 13%;
+}
+
+.th-form-sku{
+    width: 13%;
+}
+
+#div-loading{
+    top: 20%;
+    left: 40%;
+    position: relative;
+    z-index: 99999;
+    width: 10%;
+    display: none;
+}
+
+#div-loading img{
+    width: 100%;
+}
+
+#recebeTabelaAjax{
+    width: 80%;
+    margin-left: 10%;
+}

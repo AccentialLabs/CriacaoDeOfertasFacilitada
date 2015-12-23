@@ -1,0 +1,31 @@
+
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php
+echo $this->Html->css("bootstrap");
+echo $this->Html->css("bootstrap-theme.min");
+echo $this->Html->css("bootstrap-theme");
+echo $this->Html->css("bootstrap.min");
+echo $this->Html->css("editing_offer");
+echo $this->fetch('css');
+
+
+echo $this->Html->script('bootstrap');
+echo $this->Html->script('bootstrap.min');
+echo $this->Html->script('editing-offer');
+echo $this->Html->script('jquery.maskMoney');
+echo $this->fetch('script');
+?>
+<script type="text/javascript">
+    $(function() {
+        alert('tes');
+        $("#demo4").maskMoney({symbol: 'R$ ',
+            showSymbol: true, thousands: '.', decimal: ',', symbolStay: true});
+    });
+
+    $(document).ready(function() {
+        alert("teste");
+    });
+</script>
+
+
+
